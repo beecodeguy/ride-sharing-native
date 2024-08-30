@@ -1,6 +1,7 @@
 import CustomButton from "@/components/custom-button";
 import InputField from "@/components/input-field";
 import { icons, images } from "@/constants";
+import { fetchAPI } from "@/lib/fetch";
 import { useSignUp } from "@clerk/clerk-expo";
 import { Link, router } from "expo-router";
 import { useState } from "react";
@@ -59,7 +60,14 @@ const SignupRoute = () => {
 
       if (completeSignUp.status === "complete") {
         // Create new user in DB
-
+        await fetchAPI(`/(api)/user`, {
+          method: "post",
+          body: JSON.stringify({
+            name: form.name,
+            email: form.email,
+            clerkId: completeSignUp.createdUserId,
+          }),
+        });
         // ends here
         await setActive({ session: completeSignUp.createdSessionId });
         setVerification({ ...verification, state: "success", error: "" });
