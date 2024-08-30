@@ -98,3 +98,5 @@ export const onboarding = [
 export const data = {
   onboarding,
 };
+
+export const GEO_MAP_DOMAIN = `https://maps.geoapify.com/v1/staticmap?style=osm-bright&width=600&height=400&center=lonlat`;
